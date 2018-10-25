@@ -139,9 +139,9 @@ If node is having trouble with "zmq.node":
 2. or, run `npm rebuild zeromq` in ravencore
 
 There may still be some lurking problems with the Ravencoin download script:
-# unknown host breaks download into interactive mode
-# the `ln` doesn't seem to work (but works manually afterwards)
-# there's a path setting problem if ravencore isn't in your home directory
+* unknown host breaks download into interactive mode
+* the `ln` doesn't seem to work (but works manually afterwards)
+* there's a path setting problem if ravencore isn't in your home directory
 
 If you got this far, launch your copy of ravencore:
 ````
