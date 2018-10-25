@@ -1,7 +1,7 @@
 Ravencore
 =======
 
-This is OverstockMedici's fork of Under's fork of Bitpay's Bitcore that currently uses Ravencoin 2.1.0.0. It has a limited segwit support.
+This is OverstockMedici's fork of Under's fork of Bitpay's Bitcore that currently uses Ravencoin 2.1.0.0. It has a limited segwit support.  Known supported os: Ubuntu 16.04.
 
 It is HIGHLY recommended to use https://github.com/OverstockMedici/ravencore-deb to build and deploy packages for production use.
 
