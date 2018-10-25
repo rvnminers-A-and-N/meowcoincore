@@ -1,7 +1,7 @@
 Ravencore
 =======
 
-This is Under's fork of Bitpay's Bitcore that uses Ravencoin 0.15.2. It has a limited segwit support.
+This is OverstockMedici's fork of Under's fork of Bitpay's Bitcore that currently uses Ravencoin 2.1.0.0. It has a limited segwit support.
 
 It is HIGHLY recommended to use https://github.com/OverstockMedici/ravencore-deb to build and deploy packages for production use.
 
@@ -11,25 +11,25 @@ Getting Started
 Deploying Ravencore full-stack manually:
 ----
 ````
-$sudo apt-get update
-$sudo apt-get -y install libevent-dev libboost-all-dev libminiupnpc10 libzmq5 software-properties-common curl git build-essential libzmq3-dev
-$sudo add-apt-repository ppa:bitcoin/bitcoin
-$sudo apt-get update
-$sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
-$curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+sudo apt-get update
+sudo apt-get -y install libevent-dev libboost-all-dev libminiupnpc10 libzmq5 software-properties-common curl git build-essential libzmq3-dev
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt-get update
+sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 ##(restart your shell/os)##
-$nvm install stable
-$nvm install-latest-npm
-$nvm use stable
+nvm install stable
+nvm install-latest-npm
+nvm use stable
 ##(install mongodb)##
-$sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
-$echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
-$sudo apt-get update
-$sudo apt-get install -y mongodb-org
-$sudo systemctl enable mongod.service
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+sudo systemctl enable mongod.service
 ##(install ravencore)##
-$git clone https://github.com/OverstockMedici/ravencore.git
-$npm install -g ravencore --production
+git clone https://github.com/OverstockMedici/ravencore.git
+npm install -g ravencore --production
 ````
 Copy the following into a file named ravencore-node.json and place it in ~/.ravencore/ (be sure to customize username values(without angle brackets<>) and/or ports)
 ````json
@@ -46,8 +46,8 @@ Copy the following into a file named ravencore-node.json and place it in ~/.rave
   "messageLog": "",
   "servicesConfig": {
     "web": {
-      "disablePolling": true,
-      "enableSocketRPC": false
+      "disablePolling": false,
+      "enableSocketRPC": true
     },
     "insight-ui": {
       "routePrefix": "",
@@ -57,19 +57,19 @@ Copy the following into a file named ravencore-node.json and place it in ~/.rave
       "routePrefix": "api",
       "coinTicker" : "https://api.coinmarketcap.com/v1/ticker/ravencoin/?convert=USD",
       "coinShort": "RVN",
-	    "db": {
-		  "host": "127.0.0.1",
-		  "port": "27017",
-		  "database": "raven-api-livenet",
-		  "user": "",
-		  "password": ""
-	  }
+      "db": {
+        "host": "127.0.0.1",
+        "port": "27017",
+        "database": "raven-api-livenet",
+        "user": "test",
+        "password": "test1234"
+      }
     },
     "ravend": {
-      "sendTxLog": "/home/<yourusername>/.ravencore/pushtx.log",
+      "sendTxLog": "/home/ubuntu/.ravencore/pushtx.log",
       "spawn": {
-        "datadir": "/home/<yourusername>/.ravencore/data",
-        "exec": "/home/<yourusername>/ravencore/node_modules/ravencore-node/bin/ravend",
+        "datadir": "/home/ubuntu/.ravencore/data",
+        "exec": "/home/ubuntu/insight/ravencore/node_modules/ravencore-node/bin/ravend",
         "rpcqueue": 1000,
         "rpcport": 8766,
         "zmqpubrawtx": "tcp://127.0.0.1:28332",
@@ -79,9 +79,9 @@ Copy the following into a file named ravencore-node.json and place it in ~/.rave
   }
 }
 ````
-Quick note on allowing socket.io from other services. 
-- If you would like to have a seperate services be able to query your api with live updates, remove the "allowedOriginRegexp": setting and change "disablePolling": to false. 
-- "enableSocketRPC" should remain false unless you can control who is connecting to your socket.io service. 
+Quick note on allowing socket.io from other services.
+- If you would like to have a seperate services be able to query your api with live updates, remove the "allowedOriginRegexp": setting and change "disablePolling": to false.
+- "enableSocketRPC" should remain false unless you can control who is connecting to your socket.io service.
 - The allowed OriginRegexp does not follow standard regex rules. If you have a subdomain, the format would be(without angle brackets<>):
 ````
 "allowedOriginRegexp": "^https://<yoursubdomain>\\.<yourdomain>\\.<yourTLD>$",
@@ -94,7 +94,9 @@ $mongo
 >db.createUser( { user: "test", pwd: "test1234", roles: [ "readWrite" ] } )
 >exit
 ````
+
 (then add these unique credentials to your ravencore-node.json)
+
 
 Copy the following into a file named raven.conf and place it in ~/.ravencore/data
 ````json
@@ -119,7 +121,29 @@ dbcache=1000
 maxtxfee=1.0
 dbmaxfilesize=64
 ````
-Launch your copy of ravencore:
+
+Troubleshooting:
+Here are a few known issues that have come up and workarounds.
+
+If the mongod isn't running some users have fixed it with these steps:
+1. change mongo host from 127.0.0.1 --> 0.0.0.0 in /etc/mongod.conf
+2. restart with sudo service mongod restart
+
+If npm is having trouble with node-x16r:
+1. sudo apt-get install node-gyp
+2. run node-gyp rebuild from ravencore/node_modules/node-x16r
+3. run npm install from ravencore/node_modules/node-x16r
+
+If node is having trouble with "zmq.node":
+1. run `npm install zeromq` in ravencore
+2. or, run `npm rebuild zeromq` in ravencore
+
+There may still be some lurking problems with the Ravencoin download script:
+# unknown host breaks download into interactive mode
+# the `ln` doesn't seem to work (but works manually afterwards)
+# there's a path setting problem if ravencore isn't in your home directory
+
+If you got this far, launch your copy of ravencore:
 ````
 $ravencored
 ````
@@ -137,7 +161,7 @@ copy the following into a file named "nginx-ravencore" and place it in /etc/ngin
 server {
     listen 80;
     listen 443 ssl;
-        
+
     include snippets/snakeoil.conf;
     root /home/ravencore/www;
     access_log /var/log/nginx/ravencore-access.log;
