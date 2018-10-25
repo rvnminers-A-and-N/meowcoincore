@@ -276,7 +276,7 @@ We're using Ravencore in production, but please use common sense when doing anyt
 Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/OverstockMedici/ravencore/blob/master/CONTRIBUTING.md) file.
 
 To verify signatures, use the following PGP keys:
-- @OverstockMedici: http://pgp.mit.edu/pks/lookup?op=get&search=0x009BAB88B3BD190C `EE6F 9673 1EF6 ED85 B12B  0A3F 009B AB88 B3BD 190C`
+- TBD
 
 ## License
 
