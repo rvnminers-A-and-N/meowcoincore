@@ -11,6 +11,10 @@ Getting Started
 Deploying Ravencore full-stack manually:
 ----
 ````
+mkdir insight
+mkdir ~/.ravencore
+mkdir ~/.ravencore/data
+cd insight
 sudo apt-get update
 sudo apt-get -y install libevent-dev libboost-all-dev libminiupnpc10 libzmq5 software-properties-common curl git build-essential libzmq3-dev
 sudo add-apt-repository ppa:bitcoin/bitcoin
@@ -27,11 +31,12 @@ echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongod
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo systemctl enable mongod.service
+##(restart your shell/os)##
 ##(install ravencore)##
 git clone https://github.com/OverstockMedici/ravencore.git
 npm install -g ravencore --production
 ````
-Copy the following into a file named ravencore-node.json and place it in ~/.ravencore/ (be sure to customize username values(without angle brackets<>) and/or ports)
+Create and copy the following into a file named ~/.ravencore/ravencore-node.json (be sure to customize username and password values under the insight-api secion - these will need to match those in the setup unique mongo credentials section below.)
 ````json
 {
   "network": "livenet",
@@ -42,7 +47,7 @@ Copy the following into a file named ravencore-node.json and place it in ~/.rave
     "insight-api",
     "insight-ui"
   ],
-  "allowedOriginRegexp": "^https://<yourdomain>\\.<yourTLD>$",
+  "allowedOriginRegexp": "^https://<yourdomain>\\.<yourTLD>$",  // delete this line to run a local server instance
   "messageLog": "",
   "servicesConfig": {
     "web": {
@@ -74,6 +79,8 @@ Copy the following into a file named ravencore-node.json and place it in ~/.rave
         "rpcport": 8766,
         "zmqpubrawtx": "tcp://127.0.0.1:28332",
         "zmqpubhashblock": "tcp://127.0.0.1:28332"
+        "rpcuser": "ravencoin",
+        "rpcpassword": "local321"
       }
     }
   }
@@ -95,10 +102,12 @@ $mongo
 >exit
 ````
 
-(then add these unique credentials to your ravencore-node.json)
+(then add these unique credentials to your ~/.ravencore/ravencore-node.json file)
 
 
-Copy the following into a file named raven.conf and place it in ~/.ravencore/data
+Create and copy the following into a file named ~/.ravencore/data/raven.conf
+NOTE: If you change the rpcuser or rpcpassword in this file be sure to also change it in the 
+~/.ravencore/ravencore-node.json file as well.
 ````json
 server=1
 whitelist=127.0.0.1
@@ -111,7 +120,7 @@ zmqpubhashblock=tcp://127.0.0.1:28332
 rpcport=8766
 rpcallowip=127.0.0.1
 rpcuser=ravencoin
-rpcpassword=local321 #change to something unique
+rpcpassword=local321
 uacomment=ravencore-sl
 
 mempoolexpiry=72 # Default 336
@@ -121,6 +130,11 @@ dbcache=1000
 maxtxfee=1.0
 dbmaxfilesize=64
 ````
+If you got this far, launch your copy of ravencore:
+````
+$ravencored
+````
+You can then view the Ravencoin block explorer at the location: `http://localhost:3001`
 
 Troubleshooting:
 Here are a few known issues that have come up and workarounds.
@@ -143,11 +157,7 @@ There may still be some lurking problems with the Ravencoin download script:
 * the `ln` doesn't seem to work (but works manually afterwards)
 * there's a path setting problem if ravencore isn't in your home directory
 
-If you got this far, launch your copy of ravencore:
-````
-$ravencored
-````
-You can then view the Ravencoin block explorer at the location: `http://localhost:3001`
+
 
 Create an Nginx proxy to forward port 80 and 443(with a snakeoil ssl cert)traffic:
 ----
