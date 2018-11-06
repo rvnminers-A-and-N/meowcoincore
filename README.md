@@ -78,7 +78,7 @@ Create and copy the following into a file named ~/.ravencore/ravencore-node.json
         "rpcqueue": 1000,
         "rpcport": 8766,
         "zmqpubrawtx": "tcp://127.0.0.1:28332",
-        "zmqpubhashblock": "tcp://127.0.0.1:28332"
+        "zmqpubhashblock": "tcp://127.0.0.1:28332",
         "rpcuser": "ravencoin",
         "rpcpassword": "local321"
       }
