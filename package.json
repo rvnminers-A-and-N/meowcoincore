@@ -29,7 +29,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/OverstockMedici/ravencore.git"
+    "url": "https://github.com/RavenDevKit/ravencore.git"
   },
   "browser": {
     "request": "browser-request"

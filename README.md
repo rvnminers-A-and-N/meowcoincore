@@ -3,7 +3,7 @@ Ravencore
 
 This is OverstockMedici's fork of Under's fork of Bitpay's Bitcore that currently uses Ravencoin 2.1.0.0. It has a limited segwit support.  Known supported os: Ubuntu 16.04.
 
-It is HIGHLY recommended to use https://github.com/OverstockMedici/ravencore-deb to build and deploy packages for production use.
+It is HIGHLY recommended to use https://github.com/RavenDevKit/ravencore-deb to build and deploy packages for production use.
 
 ----
 Getting Started
@@ -33,7 +33,7 @@ sudo apt-get install -y mongodb-org
 sudo systemctl enable mongod.service
 ##(restart your shell/os)##
 ##(install ravencore)##
-git clone https://github.com/OverstockMedici/ravencore.git
+git clone https://github.com/RavenDevKit/ravencore.git
 npm install -g ravencore --production
 ````
 Create and copy the following into a file named ~/.ravencore/ravencore-node.json (be sure to customize username and password values under the insight-api secion - these will need to match those in the setup unique mongo credentials section below.)
@@ -216,7 +216,7 @@ $cd ~/
 $rm -rf .npm .node-gyp ravencore
 $rm .ravencore/data/raven.conf .ravencore/ravencore-node.json
 ##reboot##
-$git clone https://github.com/OverstockMedici/ravencore.git
+$git clone https://github.com/RavenDevKit/ravencore.git
 $npm install -g ravencore --production
 ````
 (recreate your unique raven.conf and ravencore-node.json)
@@ -229,7 +229,7 @@ $cd ~/
 $rm -rf .npm .node-gyp ravencore
 $rm -rf .ravencore
 ##reboot##
-$git clone https://github.com/OverstockMedici/ravencore.git
+$git clone https://github.com/RavenDevKit/ravencore.git
 $npm install -g ravencore --production
 ````
 (recreate your unique raven.conf and ravencore-node.json)
@@ -257,24 +257,24 @@ mongo
 
 ## Applications
 
-- [Node](https://github.com/OverstockMedici/ravencore-node) - A full node with extended capabilities using Ravencoin Core
-- [Insight API](https://github.com/OverstockMedici/insight-api) - A blockchain explorer HTTP API
-- [Insight UI](https://github.com/OverstockMedici/insight) - A blockchain explorer web user interface
-- (to-do) [Wallet Service](https://github.com/OverstockMedici/ravencore-wallet-service) - A multisig HD service for wallets
-- (to-do) [Wallet Client](https://github.com/OverstockMedici/ravencore-wallet-client) - A client for the wallet service
-- (to-do) [CLI Wallet](https://github.com/OverstockMedici/ravencore-wallet) - A command-line based wallet client
-- (to-do) [Angular Wallet Client](https://github.com/OverstockMedici/angular-ravencore-wallet-client) - An Angular based wallet client
-- (to-do) [Copay](https://github.com/OverstockMedici/copay) - An easy-to-use, multiplatform, multisignature, secure ravencoin wallet
+- [Node](https://github.com/RavenDevKit/ravencore-node) - A full node with extended capabilities using Ravencoin Core
+- [Insight API](https://github.com/RavenDevKit/insight-api) - A blockchain explorer HTTP API
+- [Insight UI](https://github.com/RavenDevKit/insight) - A blockchain explorer web user interface
+- (to-do) [Wallet Service](https://github.com/RavenDevKit/ravencore-wallet-service) - A multisig HD service for wallets
+- (to-do) [Wallet Client](https://github.com/RavenDevKit/ravencore-wallet-client) - A client for the wallet service
+- (to-do) [CLI Wallet](https://github.com/RavenDevKit/ravencore-wallet) - A command-line based wallet client
+- (to-do) [Angular Wallet Client](https://github.com/RavenDevKit/angular-ravencore-wallet-client) - An Angular based wallet client
+- (to-do) [Copay](https://github.com/RavenDevKit/copay) - An easy-to-use, multiplatform, multisignature, secure ravencoin wallet
 
 ## Libraries
 
-- [Lib](https://github.com/OverstockMedici/ravencore-lib) - All of the core Ravencoin primatives including transactions, private key management and others
-- (to-do) [Payment Protocol](https://github.com/OverstockMedici/ravencore-payment-protocol) - A protocol for communication between a merchant and customer
-- [P2P](https://github.com/OverstockMedici/ravencore-p2p) - The peer-to-peer networking protocol
-- (to-do) [Mnemonic](https://github.com/OverstockMedici/ravencore-mnemonic) - Implements mnemonic code for generating deterministic keys
-- (to-do) [Channel](https://github.com/OverstockMedici/ravencore-channel) - Micropayment channels for rapidly adjusting ravencoin transactions
-- [Message](https://github.com/OverstockMedici/ravencore-message) - Ravencoin message verification and signing
-- (to-do) [ECIES](https://github.com/OverstockMedici/ravencore-ecies) - Uses ECIES symmetric key negotiation from public keys to encrypt arbitrarily long data streams.
+- [Lib](https://github.com/RavenDevKit/ravencore-lib) - All of the core Ravencoin primatives including transactions, private key management and others
+- (to-do) [Payment Protocol](https://github.com/RavenDevKit/ravencore-payment-protocol) - A protocol for communication between a merchant and customer
+- [P2P](https://github.com/RavenDevKit/ravencore-p2p) - The peer-to-peer networking protocol
+- (to-do) [Mnemonic](https://github.com/RavenDevKit/ravencore-mnemonic) - Implements mnemonic code for generating deterministic keys
+- (to-do) [Channel](https://github.com/RavenDevKit/ravencore-channel) - Micropayment channels for rapidly adjusting ravencoin transactions
+- [Message](https://github.com/RavenDevKit/ravencore-message) - Ravencoin message verification and signing
+- (to-do) [ECIES](https://github.com/RavenDevKit/ravencore-ecies) - Uses ECIES symmetric key negotiation from public keys to encrypt arbitrarily long data streams.
 
 ## Security
 
@@ -282,11 +282,11 @@ We're using Ravencore in production, but please use common sense when doing anyt
 
 ## Contributing
 
-Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/OverstockMedici/ravencore/blob/master/CONTRIBUTING.md) file.
+Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/RavenDevKit/ravencore/blob/master/CONTRIBUTING.md) file.
 
 To verify signatures, use the following PGP keys:
 - TBD
 
 ## License
 
-Code released under [the MIT license](https://github.com/OverstockMedici/ravencore/blob/master/LICENSE).
+Code released under [the MIT license](https://github.com/RavenDevKit/ravencore/blob/master/LICENSE).
