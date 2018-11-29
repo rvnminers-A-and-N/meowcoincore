@@ -29,16 +29,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/underdarkskies/ravencore.git"
+    "url": "https://github.com/OverstockMedici/ravencore.git"
   },
   "browser": {
     "request": "browser-request"
   },
   "dependencies": {
-    "ravencore-lib": "underdarkskies/ravencore-lib",
-    "ravencore-node": "underdarkskies/ravencore-node",
-    "insight-api": "underdarkskies/insight-api",
-    "insight-ui": "underdarkskies/insight-ui"
+    "ravencore-lib": "OverstockMedici/ravencore-lib",
+    "ravencore-node": "OverstockMedici/ravencore-node",
+    "insight-api": "OverstockMedici/insight-api",
+    "insight-ui": "OverstockMedici/insight-ui"
   },
   "license": "MIT",
   "devDependencies": {
