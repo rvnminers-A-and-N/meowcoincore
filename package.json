@@ -35,10 +35,10 @@
     "request": "browser-request"
   },
   "dependencies": {
-    "ravencore-lib": "OverstockMedici/ravencore-lib",
-    "ravencore-node": "OverstockMedici/ravencore-node",
-    "insight-api": "OverstockMedici/insight-api",
-    "insight-ui": "OverstockMedici/insight-ui"
+    "ravencore-lib": "RavenDevKit/ravencore-lib",
+    "ravencore-node": "RavenDevKit/ravencore-node",
+    "insight-api": "RavenDevKit/insight-api",
+    "insight-ui": "RavenDevKit/insight-ui"
   },
   "license": "MIT",
   "devDependencies": {
