@@ -35,10 +35,10 @@
     "request": "browser-request"
   },
   "dependencies": {
-    "ravencore-lib": "RavenDevKit/ravencore-lib",
-    "ravencore-node": "RavenDevKit/ravencore-node",
+    "@ravendevkit/ravencore-lib": "^1.0.3",
     "insight-api": "RavenDevKit/insight-api",
-    "insight-ui": "RavenDevKit/insight-ui"
+    "insight-ui": "RavenDevKit/insight-ui",
+    "ravencore-node": "RavenDevKit/ravencore-node"
   },
   "license": "MIT",
   "devDependencies": {
