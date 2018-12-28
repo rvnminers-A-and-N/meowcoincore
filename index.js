@@ -1,5 +1,5 @@
 'use strict';
 
-var ravencore = require('ravencore-lib');
+var ravencore = require('@ravendevkit/ravencore-lib');
 
 module.exports = ravencore;
