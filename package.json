@@ -35,7 +35,7 @@
     "request": "browser-request"
   },
   "dependencies": {
-    "@ravendevkit/ravencore-lib": "^1.0.3",
+    "@ravendevkit/ravencore-lib": "^1.0.4",
     "insight-api": "RavenDevKit/insight-api",
     "insight-ui": "RavenDevKit/insight-ui",
     "ravencore-node": "RavenDevKit/ravencore-node"
