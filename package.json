@@ -1,6 +1,6 @@
 {
   "name": "ravencore",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "A platform to build ravencoin and blockchain-based applications.",
   "author": "Under",
   "main": "index.js",
@@ -35,7 +35,7 @@
     "request": "browser-request"
   },
   "dependencies": {
-    "@ravendevkit/ravencore-lib": "^1.0.4",
+    "ravencore-lib": "RavenDevKit/ravencore-lib",
     "insight-api": "RavenDevKit/insight-api",
     "insight-ui": "RavenDevKit/insight-ui",
     "ravencore-node": "RavenDevKit/ravencore-node"
