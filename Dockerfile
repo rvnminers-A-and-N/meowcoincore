@@ -18,7 +18,6 @@ WORKDIR /app
 USER api
 
 COPY . .
-#RUN git clone https://github.com/ravendevkit/ravencore.git
 
 RUN npm install
 
