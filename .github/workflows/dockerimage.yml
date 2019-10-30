@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
 
-  build:
+  build_amd64:
 
     runs-on: ubuntu-latest
 
@@ -18,7 +18,7 @@ jobs:
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push ravenproject/ravencore-api:amd64-latest
 
-  build arm32v7:
+  build_arm32v7:
 
     runs-on: ubuntu-latest
 
