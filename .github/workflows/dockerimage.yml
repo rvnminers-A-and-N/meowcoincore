@@ -24,6 +24,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Check docker version
+      run: |
+          docker buildx ls
     - name: Build the ARM32v7 Docker image
       run: docker build . --file Dockerfile.arm32v7 --tag ravenproject/ravencore-api:arm32v7-latest
 
