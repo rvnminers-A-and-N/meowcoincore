@@ -1,0 +1,25 @@
+name: Build a docker image
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the AMD64 Docker image
+      run: docker build . --file Dockerfile.amd64 --tag ravenproject/ravencore-api:amd64-latest
+      
+    - name: Push the AMD64 Docker image
+      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+           docker push ravenproject/ravencore-api:amd64-latest
+      
+    - name: Build the ARM32v7 Docker image
+      run: docker build . --file Dockerfile.arm32v7 --tag ravenproject/ravencore-api:arm32v7-latest
+    
+    - name: Push the ARM32v7 Docker image
+      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+           docker push ravenproject/ravencore-api:arm32v7-latest
