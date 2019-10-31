@@ -1,15 +1,8 @@
-FROM arm32v7/node:latest
+FROM arm32v7/node:10.5.0
 
 EXPOSE 3001
 
-RUN apt-get update && apt-get -y install \
-    build-essential \
-    curl \
-    git \
-    libevent-dev \
-    libzmq3-dev \
-    make \
-    && apt-get clean
+RUN apt-get update && apt-get -y install build-essential curl git libevent-dev libzmq3-dev make && apt-get clean
 
 RUN useradd -ms /bin/bash -d /app api
 
