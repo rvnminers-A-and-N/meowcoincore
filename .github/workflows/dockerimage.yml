@@ -1,6 +1,8 @@
-name: Build a docker image
+name: Build docker images for release
 
-on: [push]
+on: release
+  types: [created, edited]
+
 
 jobs:
 
@@ -11,11 +13,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the AMD64 Docker image
-      run: docker build . --file Dockerfile.amd64 --tag ravenproject/ravencore-api:amd64-latest
+      run: docker build . --file Dockerfile.amd64 --tag ravenproject/ravencore-api:amd64-$(date +%Y%m%d)
 
     - name: Push the AMD64 Docker image
       run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
+          docker push ravenproject/ravencore-api:amd64-$(date +%Y%m%d)
+          docker tag ravenproject/ravencore-api:amd64-$(date +%Y%m%d) ravenproject/ravencore-api:amd64-latest
           docker push ravenproject/ravencore-api:amd64-latest
 
   build_arm32v7:
@@ -40,10 +44,11 @@ jobs:
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
 
     - name: Build the ARM32v7 Docker image
-      run: docker build . --file Dockerfile.arm32v7 --tag ravenproject/ravencore-api:arm32v7-$(date +%Y%m%d).${{ github.action }}
+      run: docker build . --file Dockerfile.arm32v7 --tag ravenproject/ravencore-api:arm32v7-$(date +%Y%m%d)
 
     - name: Push the ARM32v7 Docker image
       run: |
           echo ${{ secrets.DOCKER_PASSWORD }} | docker login --username ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          docker push ravenproject/ravencore-api:arm32v7-$(date +%Y%m%d).${{ github.action }}
-          docker tag ravenproject/ravencore-api:arm32v7-$(date +%Y%m%d).${{ github.action }} ravenproject/ravencore-api:arm32v7-latest
+          docker push ravenproject/ravencore-api:arm32v7-$(date +%Y%m%d)
+          docker tag ravenproject/ravencore-api:arm32v7-$(date +%Y%m%d) ravenproject/ravencore-api:arm32v7-latest
+          docker push ravenproject/ravencore-api:arm32v7-latest
