@@ -1,100 +1,72 @@
 Ravencore
 =======
 
-This is OverstockMedici's fork of Under's fork of Bitpay's Bitcore that currently uses Ravencoin 2.1.0.0. It has a limited segwit support.  Known supported os: Ubuntu 16.04.
-
-It is HIGHLY recommended to use https://github.com/RavenDevKit/ravencore-deb to build and deploy packages for production use.
+This project is for end users of the RavenDevKit.  It's purpose is to help them install and configure the full stack, giving them access to the API and Block Explorer.
 
 ----
 Getting Started
 =====================================
+Known to work on this platform: Ubuntu 16.04/x86_64
+
 Deploying Ravencore full-stack manually:
 ----
 ````
-mkdir insight
+mkdir ~/rdk
 mkdir ~/.ravencore
 mkdir ~/.ravencore/data
-cd insight
+cd ~/rdk
 sudo apt-get update
 sudo apt-get -y install libevent-dev libboost-all-dev libminiupnpc10 libzmq5 software-properties-common curl git build-essential libzmq3-dev
 sudo add-apt-repository ppa:bitcoin/bitcoin
 sudo apt-get update
 sudo apt-get -y install libdb4.8-dev libdb4.8++-dev
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
 ##(restart your shell/os)##
-nvm install stable
+cd ~/rdk
+nvm install lts/dubnium
 nvm install-latest-npm
-nvm use stable
+nvm use lts/dubnium
 ##(install mongodb)##
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo systemctl enable mongod.service
+
 ##(restart your shell/os)##
+cd ~/rdk
 ##(install ravencore)##
 git clone https://github.com/RavenDevKit/ravencore.git
+
+## install ravencore, with or without ravencoin
+## option 1: downloads and installs ravencoin at /node_modules/ravencore-node/bin/ravend
 npm install -g ravencore --production
-````
-Create and copy the following into a file named ~/.ravencore/ravencore-node.json (be sure to customize username and password values under the insight-api secion - these will need to match those in the setup unique mongo credentials section below.)
-````json
-{
-  "network": "livenet",
-  "port": 3001,
-  "services": [
-    "ravend",
-    "web",
-    "insight-api",
-    "insight-ui"
-  ],
-  "allowedOriginRegexp": "^https://<yourdomain>\\.<yourTLD>$",  // delete this line to run a local server instance
-  "messageLog": "",
-  "servicesConfig": {
-    "web": {
-      "disablePolling": false,
-      "enableSocketRPC": true
-    },
-    "insight-ui": {
-      "routePrefix": "",
-      "apiPrefix": "api"
-    },
-    "insight-api": {
-      "routePrefix": "api",
-      "coinTicker" : "https://api.coinmarketcap.com/v1/ticker/ravencoin/?convert=USD",
-      "coinShort": "RVN",
-      "db": {
-        "host": "127.0.0.1",
-        "port": "27017",
-        "database": "raven-api-livenet",
-        "user": "test",
-        "password": "test1234"
-      }
-    },
-    "ravend": {
-      "sendTxLog": "/home/ubuntu/.ravencore/pushtx.log",
-      "spawn": {
-        "datadir": "/home/ubuntu/.ravencore/data",
-        "exec": "/home/ubuntu/insight/ravencore/node_modules/ravencore-node/bin/ravend",
-        "rpcqueue": 1000,
-        "rpcport": 8766,
-        "zmqpubrawtx": "tcp://127.0.0.1:28332",
-        "zmqpubhashblock": "tcp://127.0.0.1:28332",
-        "rpcuser": "ravencoin",
-        "rpcpassword": "local321"
-      }
-    }
-  }
-}
-````
-Quick note on allowing socket.io from other services.
-- If you would like to have a seperate services be able to query your api with live updates, remove the "allowedOriginRegexp": setting and change "disablePolling": to false.
-- "enableSocketRPC" should remain false unless you can control who is connecting to your socket.io service.
-- The allowed OriginRegexp does not follow standard regex rules. If you have a subdomain, the format would be(without angle brackets<>):
-````
-"allowedOriginRegexp": "^https://<yoursubdomain>\\.<yourdomain>\\.<yourTLD>$",
+## options 2: use this instead if you're maintaining your own ravencoin installation
+#SKIP_RAVENCOIN_DOWNLOAD=1 npm install -g ravencore --production
+
 ````
 
-To setup unique mongo credentials:
+Ravencore Node Configuration
+---
+Copy the [example configuration](examples/ravencore-node.json) to `~/.ravencore/ravencore-node.json`
+
+Some things you'll want to customize:
+----
+- `insight-api/db`: settings should match the ones you use when you set up Mongo (see below)
+- `disableCors`: set to `false` if you want to restrict cross-origin requests.
+- socket.io
+  - If you'd like to restrict other services from being able to query your API with live updates:
+    - add this setting at the top level (does not follow standard regex rules. If you have a subdomain, the format would be(without angle brackets<>):
+      - `"allowedOriginRegexp": "^https://<yourdomain>\\.<yourTLD>$"`
+      - `"allowedOriginRegexp": "^https://<yoursubdomain>\\.<yourdomain>\\.<yourTLD>$"`
+    - change `disablePolling` to `true`
+  - `enableSocketRPC` should be set to `false` unless you can control who is connecting to your socket.io service.
+
+
+Mongo Configuration
+---
+MongoDB is used to store values behind some stats endpoints.  Run the following commands to set it up (the ones that start with `>` are run within mongo):
 ````
 mongo
 >use raven-api-livenet
@@ -102,41 +74,23 @@ mongo
 >exit
 ````
 
-(then add these unique credentials to your ~/.ravencore/ravencore-node.json file)
+(NOTE: if you change any of the values here, change them in the `insight-api/db` section of your `ravencore-node.json`)
 
+Ravencoin Node Configuration
+---
+Copy the [example configuration](examples/raven.conf) to `~/.ravencore/data/raven.conf`
 
-Create and copy the following into a file named ~/.ravencore/data/raven.conf
-NOTE: If you change the rpcuser or rpcpassword in this file be sure to also change it in the
-~/.ravencore/ravencore-node.json file as well.
-````json
-server=1
-whitelist=127.0.0.1
-txindex=1
-addressindex=1
-timestampindex=1
-spentindex=1
-zmqpubrawtx=tcp://127.0.0.1:28332
-zmqpubhashblock=tcp://127.0.0.1:28332
-rpcport=8766
-rpcallowip=127.0.0.1
-rpcuser=ravencoin
-rpcpassword=local321
-uacomment=ravencore-sl
+(NOTE: If you change the rpcuser or rpcpassword in this file be sure to also change it in the `ravend` section of your `~/.ravencore/ravencore-node.json`)
 
-mempoolexpiry=72 # Default 336
-rpcworkqueue=1100
-maxmempool=2000
-dbcache=1000
-maxtxfee=1.0
-dbmaxfilesize=64
-````
-If you got this far, launch your copy of ravencore:
+Launch Ravencore
+---
 ````
 ravencored
 ````
 You can then view the Ravencoin block explorer at the location: `http://localhost:3001`
 
-Troubleshooting:
+Troubleshooting
+----
 Here are a few known issues that have come up and workarounds.
 
 If the mongod isn't running some users have fixed it with these steps:
@@ -152,15 +106,17 @@ If node is having trouble with "zmq.node":
 1. run `npm install zeromq` in ravencore
 2. or, run `npm rebuild zeromq` in ravencore
 
-There may still be some lurking problems with the Ravencoin download script:
+There may still be some lurking problems with the download-ravend script:
 * unknown host breaks download into interactive mode
 * the `ln` doesn't seem to work (but works manually afterwards)
 * there's a path setting problem if ravencore isn't in your home directory
 
 
 
-Create an Nginx proxy to forward port 80 and 443(with a snakeoil ssl cert)traffic:
+Create an Nginx proxy
 ----
+To forward port 80 and 443 (with a snakeoil ssl cert) traffic:
+
 IMPORTANT: this "nginx-ravencore" config is not meant for production use
 see this guide [here](https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/) for production usage
 ````
@@ -260,21 +216,12 @@ mongo
 - [Node](https://github.com/RavenDevKit/ravencore-node) - A full node with extended capabilities using Ravencoin Core
 - [Insight API](https://github.com/RavenDevKit/insight-api) - A blockchain explorer HTTP API
 - [Insight UI](https://github.com/RavenDevKit/insight) - A blockchain explorer web user interface
-- (to-do) [Wallet Service](https://github.com/RavenDevKit/ravencore-wallet-service) - A multisig HD service for wallets
-- (to-do) [Wallet Client](https://github.com/RavenDevKit/ravencore-wallet-client) - A client for the wallet service
-- (to-do) [CLI Wallet](https://github.com/RavenDevKit/ravencore-wallet) - A command-line based wallet client
-- (to-do) [Angular Wallet Client](https://github.com/RavenDevKit/angular-ravencore-wallet-client) - An Angular based wallet client
-- (to-do) [Copay](https://github.com/RavenDevKit/copay) - An easy-to-use, multiplatform, multisignature, secure ravencoin wallet
 
 ## Libraries
 
 - [Lib](https://github.com/RavenDevKit/ravencore-lib) - All of the core Ravencoin primatives including transactions, private key management and others
-- (to-do) [Payment Protocol](https://github.com/RavenDevKit/ravencore-payment-protocol) - A protocol for communication between a merchant and customer
 - [P2P](https://github.com/RavenDevKit/ravencore-p2p) - The peer-to-peer networking protocol
-- (to-do) [Mnemonic](https://github.com/RavenDevKit/ravencore-mnemonic) - Implements mnemonic code for generating deterministic keys
-- (to-do) [Channel](https://github.com/RavenDevKit/ravencore-channel) - Micropayment channels for rapidly adjusting ravencoin transactions
 - [Message](https://github.com/RavenDevKit/ravencore-message) - Ravencoin message verification and signing
-- (to-do) [ECIES](https://github.com/RavenDevKit/ravencore-ecies) - Uses ECIES symmetric key negotiation from public keys to encrypt arbitrarily long data streams.
 
 ## Security
 

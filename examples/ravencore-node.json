@@ -1,0 +1,47 @@
+{
+  "network": "livenet",
+  "port": 3001,
+  "services": [
+    "ravend",
+    "web",
+    "insight-api",
+    "insight-ui"
+  ],
+  "messageLog": "",
+  "servicesConfig": {
+    "web": {
+      "disablePolling": false,
+      "enableSocketRPC": true,
+      "disableCors": true
+    },
+    "insight-ui": {
+      "routePrefix": "",
+      "apiPrefix": "api"
+    },
+    "insight-api": {
+      "routePrefix": "api",
+      "coinTicker" : "https://api.coinmarketcap.com/v1/ticker/ravencoin/?convert=USD",
+      "coinShort": "RVN",
+      "db": {
+        "host": "127.0.0.1",
+        "port": "27017",
+        "database": "raven-api-livenet",
+        "user": "test",
+        "password": "test1234"
+      }
+    },
+    "ravend": {
+      "sendTxLog": "/home/ubuntu/.ravencore/pushtx.log",
+      "spawn": {
+        "datadir": "/home/ubuntu/.ravencore/data",
+        "exec": "/home/ubuntu/rdk/ravencore/node_modules/ravencore-node/bin/ravend",
+        "rpcqueue": 1000,
+        "rpcport": 8766,
+        "zmqpubrawtx": "tcp://127.0.0.1:28332",
+        "zmqpubhashblock": "tcp://127.0.0.1:28332",
+        "rpcuser": "ravencoin",
+        "rpcpassword": "local321"
+      }
+    }
+  }
+}
