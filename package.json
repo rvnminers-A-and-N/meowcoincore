@@ -35,10 +35,12 @@
     "request": "browser-request"
   },
   "dependencies": {
-    "ravencore-lib": "RavenDevKit/ravencore-lib",
     "insight-api": "RavenDevKit/insight-api",
     "insight-ui": "RavenDevKit/insight-ui",
-    "ravencore-node": "RavenDevKit/ravencore-node"
+    "kawpow-light-verifier": "git+https://github.com/blondfrogs/kawpow-light-verifier.git",
+    "ravencore-lib": "RavenDevKit/ravencore-lib",
+    "ravencore-node": "RavenDevKit/ravencore-node",
+    "node-x16r": "RavenDevKit/node-x16r"
   },
   "license": "MIT",
   "devDependencies": {
