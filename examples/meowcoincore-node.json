@@ -2,7 +2,7 @@
   "network": "livenet",
   "port": 3001,
   "services": [
-    "ravend",
+    "meowcoind",
     "web",
     "insight-api",
     "insight-ui"
@@ -20,26 +20,26 @@
     },
     "insight-api": {
       "routePrefix": "api",
-      "coinTicker" : "https://api.coinmarketcap.com/v1/ticker/ravencoin/?convert=USD",
-      "coinShort": "RVN",
+      "coinTicker" : "https://api.coinmarketcap.com/v1/ticker/meowcoin/?convert=USD",
+      "coinShort": "",
       "db": {
         "host": "127.0.0.1",
         "port": "27017",
-        "database": "raven-api-livenet",
+        "database": "meowcoin-api-livenet",
         "user": "test",
         "password": "test1234"
       }
     },
-    "ravend": {
-      "sendTxLog": "/home/ubuntu/.ravencore/pushtx.log",
+    "meowcoind": {
+      "sendTxLog": "/home/ubuntu/.meowcoincore/pushtx.log",
       "spawn": {
-        "datadir": "/home/ubuntu/.ravencore/data",
-        "exec": "/home/ubuntu/rdk/ravencore/node_modules/ravencore-node/bin/ravend",
+        "datadir": "/home/ubuntu/.meowcoincore/data",
+        "exec": "/home/ubuntu/rdk/meowcoincore/node_modules/meowcoincore-node/bin/meowcoind",
         "rpcqueue": 1000,
-        "rpcport": 8766,
+        "rpcport": 9766,
         "zmqpubrawtx": "tcp://127.0.0.1:28332",
         "zmqpubhashblock": "tcp://127.0.0.1:28332",
-        "rpcuser": "ravencoin",
+        "rpcuser": "meowcoin",
         "rpcpassword": "local321"
       }
     }

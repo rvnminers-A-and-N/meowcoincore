@@ -1,5 +1,5 @@
 'use strict';
 
-var ravencore = require('ravencore-lib');
+var meowcoincore = require('meowcoincore-lib');
 
-module.exports = ravencore;
+module.exports = meowcoincore;

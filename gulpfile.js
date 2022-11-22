@@ -1,5 +1,5 @@
 
 
-var ravencoreTasks = require('ravencore-build');
+var meowcoincoreTasks = require('meowcoincore-build');
 
-ravencoreTasks();
+meowcoincoreTasks();

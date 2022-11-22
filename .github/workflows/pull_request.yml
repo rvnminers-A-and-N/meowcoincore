@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the AMD64 Docker image
-      run: docker build . --file Dockerfile.amd64 --tag ravenproject/ravencore-api:amd64-$(date +%Y%m%d)
+      run: docker build . --file Dockerfile.amd64 --tag meowcoinproject/meowcoincore-api:amd64-$(date +%Y%m%d)
 
   build_arm32v7:
 
@@ -35,4 +35,4 @@ jobs:
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
 
     - name: Build the ARM32v7 Docker image
-      run: docker build . --file Dockerfile.arm32v7 --tag ravenproject/ravencore-api:arm32v7-$(date +%Y%m%d)
+      run: docker build . --file Dockerfile.arm32v7 --tag meowcoinproject/meowcoincore-api:arm32v7-$(date +%Y%m%d)

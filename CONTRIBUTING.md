@@ -1,7 +1,7 @@
-Contributing to Ravencore
+Contributing to Meowcoincore
 =======
 
-We're working hard to make *ravencore* the most powerful JavaScript library for working with ravencoin. Our goal is to have *ravencore* be a library that can be used by anyone interested in ravencoin, and to level expertise differences with great design and documentation.
+We're working hard to make *meowcoincore* the most powerful JavaScript library for working with meowcoin. Our goal is to have *meowcoincore* be a library that can be used by anyone interested in meowcoin, and to level expertise differences with great design and documentation.
 
 ## Community
 
@@ -20,7 +20,7 @@ Ideally, please make sure to run:
 
 ## Design Guidelines
 
-These are some global design goals in ravencore that any change must adhere.
+These are some global design goals in meowcoincore that any change must adhere.
 
 ### D1 - Naming Matters
 
@@ -40,7 +40,7 @@ Write a test for all your code. We encourage Test Driven Development so we know 
 
 Interfaces should accept as many types of arguments as possible, so there's no mental tax on using them: we want to avoid questions such as "should I use a string here or a buffer?", "what happens if I'm not sure if the type of this variable is an Address instance or a string with it encoded in base-58?" or "what kind of object will I receive after calling this function?".
 
-Accept a wide variety of use cases and arguments, always return an internal form of an object. For example, the class `PublicKey` can accept strings or buffers with a DER encoded public key (either compressed or uncompressed), another PublicKey, a PrivateKey, or a Point, an instance of the `elliptic.js` library with the point in ravencoin's elliptic curve that represents the public key.
+Accept a wide variety of use cases and arguments, always return an internal form of an object. For example, the class `PublicKey` can accept strings or buffers with a DER encoded public key (either compressed or uncompressed), another PublicKey, a PrivateKey, or a Point, an instance of the `elliptic.js` library with the point in meowcoin's elliptic curve that represents the public key.
 
 ### D4 - Consistency Everywhere
 
@@ -91,7 +91,7 @@ var bufferUtil = require('./util/buffer');
 
 #### G7 - Standard Methods
 
-When possible, ravencore objects should have standard methods on an instance prototype:
+When possible, meowcoincore objects should have standard methods on an instance prototype:
 * `toObject/toJSON` - A plain JavaScript object that `JSON.stringify` can call
 * `toString` - A string representation of the instance
 * `toBuffer` - A hex Buffer
@@ -101,7 +101,7 @@ These should have a matching static method that can be used for instantiation:
 * `fromString` - Should be able to instantiate with output from `toString`
 * `fromBuffer` - Should likewise be able to instantiate from output from `toBuffer`
 
-`JSON.stringify` and `JSON.parse` are expected to be handled outside of the scope of Ravencore methods. For example, calling `JSON.stringify` on an Ravencore object will behave as expected and call `transaction.toJSON()` and then stringify it:
+`JSON.stringify` and `JSON.parse` are expected to be handled outside of the scope of Meowcoincore methods. For example, calling `JSON.stringify` on an Meowcoincore object will behave as expected and call `transaction.toJSON()` and then stringify it:
 
 ```javascript
 var transactionString = JSON.stringify(transaction);
@@ -116,7 +116,7 @@ var tx = new Transaction(data);
 
 ### Errors
 
-#### E1 - Use ravencore.Errors
+#### E1 - Use meowcoincore.Errors
 
 We've designed a structure for Errors to follow and are slowly migrating to it.
 
@@ -206,14 +206,14 @@ Don't write long tests, write helper functions to make them be as short and conc
 
 Inputs for tests should not be generated randomly. Also, the type and structure of outputs should be checked.
 
-#### T3 - Require 'ravencore' and Look up Classes from There
+#### T3 - Require 'meowcoincore' and Look up Classes from There
 
-This helps to make tests more useful as examples, and more independent of where they are placed. This also helps prevent forgetting to include all submodules in the ravencore object.
+This helps to make tests more useful as examples, and more independent of where they are placed. This also helps prevent forgetting to include all submodules in the meowcoincore object.
 
 DO:
 ```javascript
-var ravencore = require('../');
-var PublicKey = ravencore.PublicKey;
+var meowcoincore = require('../');
+var PublicKey = meowcoincore.PublicKey;
 ```
 DON'T:
 ```javascript
@@ -246,7 +246,7 @@ git checkout -b remove/some-file
 
 We expect pull requests to be rebased to the master branch before merging:
 ```sh
-git remote add under git@github.com:OverstockMedici/ravencore.git
+git remote add under git@github.com:OverstockMedici/meowcoincore.git
 git pull --rebase under master
 ```
 
@@ -258,11 +258,11 @@ git push origin your_branch_name
 git push origin feature/some-new-stuff
 git push origin fix/some-bug
 ```
-Finally go to [github.com/RavenDevKit/ravencore](https://github.com/RavenDevKit/ravencore) in your web browser and issue a new pull request.
+Finally go to [github.com/rvnminers-A-and-N/meowcoincore](https://github.com/rvnminers-A-and-N/meowcoincore) in your web browser and issue a new pull request.
 
-Main contributors will review your code and possibly ask for changes before your code is pulled in to the main repository.  We'll check that all tests pass, review the coding style, and check for general code correctness. If everything is OK, we'll merge your pull request and your code will be part of ravencore.
+Main contributors will review your code and possibly ask for changes before your code is pulled in to the main repository.  We'll check that all tests pass, review the coding style, and check for general code correctness. If everything is OK, we'll merge your pull request and your code will be part of meowcoincore.
 
 If you have any questions feel free to post them to
-[github.com/RavenDevKit/ravencore/issues](https://github.com/RavenDevKit/ravencore/issues).
+[github.com/rvnminers-A-and-N/meowcoincore/issues](https://github.com/rvnminers-A-and-N/meowcoincore/issues).
 
 Thanks for your time and code!

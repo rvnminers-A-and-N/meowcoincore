@@ -45,13 +45,13 @@ fi
 if [[ ${MONGODATABASE} ]]; then
   mongo_database=${MONGODATABASE}
 else
-  mongo_database="raven-api"
+  mongo_database="meowcoin-api"
 fi
 
 if [[ ${MONGOUSER} ]]; then
   mongo_user=${MONGOUSER}
 else
-  mongo_user="raven"
+  mongo_user="meowcoin"
 fi
 
 if [[ ${MONGOPASSWORD} ]]; then
@@ -63,19 +63,19 @@ fi
 if [[ ${RPCHOST} ]]; then
   rpc_host=${RPCHOST}
 else
-  rpc_host="ravend"
+  rpc_host="meowcoind"
 fi
 
 if [[ ${RPCPORT} ]]; then
   rpc_port=${RPCPORT}
 else
-  rpc_port="18766"
+  rpc_port="19766"
 fi
 
 if [[ ${RPCUSER} ]]; then
   rpc_user=${RPCUSER}
 else
-  rpc_user="raven"
+  rpc_user="meowcoin"
 fi
 
 if [[ ${RPCPASSWORD} ]]; then
@@ -94,7 +94,7 @@ printf '{
   "network": "%s",
   "port": "%s",
   "services": [
-    "ravend",
+    "meowcoind",
     "web",
     "insight-api",
     "insight-ui"
@@ -112,8 +112,8 @@ printf '{
     "insight-api": {
       "routePrefix": "api",
       "disableRateLimiter": "%s",
-      "coinTicker": "https://api.coinmarketcap.com/v1/ticker/ravencoin/?convert=USD",
-      "coinShort": "RVN",
+      "coinTicker": "https://api.coinmarketcap.com/v1/ticker/meowcoin/?convert=USD",
+      "coinShort": "MEWC",
       "db": {
         "host": "%s",
         "port": "%s",
@@ -122,7 +122,7 @@ printf '{
         "password": "%s"
       }
     },
-    "ravend": {
+    "meowcoind": {
       "connect": [ {
         "rpchost": "%s",
         "rpcport": "%s",
@@ -147,11 +147,11 @@ printf '{
 "${rpc_port}" \
 "${rpc_user}" \
 "${rpc_password}" \
-"${rpc_zmqaddress}" > ./ravencore-node.json
+"${rpc_zmqaddress}" > ./meowcoincore-node.json
 
-if [[ -e /app/bin/ravencored ]]; then
-  /app/bin/ravencored -c /app/ravencore-node.json
+if [[ -e /app/bin/meowcoincored ]]; then
+  /app/bin/meowcoincored -c /app/meowcoincore-node.json
 else
-  echo "unable to fine ravencored. $?"
+  echo "unable to fine meowcoincored. $?"
   exit 1
 fi

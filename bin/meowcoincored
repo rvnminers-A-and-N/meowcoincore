@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
-var ravencore = require('ravencore-node/lib/cli/ravencore');
+'use strict';
+
 var path = require('path');
+var meowcoincored = require('meowcoincore-node/lib/cli/meowcoincored');
 var servicesPath = path.resolve(__dirname, '../');
 var additionalServices = ['insight-api', 'insight-ui'];
-ravencore(servicesPath, additionalServices);
+meowcoincored(servicesPath, additionalServices);

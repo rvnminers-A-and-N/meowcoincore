@@ -1,18 +1,18 @@
 {
-  "name": "ravencore",
-  "main": "./ravencore.min.js",
+  "name": "meowcoincore",
+  "main": "./meowcoincore.min.js",
   "version": "1.0.1",
-  "homepage": "https://github.com/RavenDevKit",
+  "homepage": "https://github.com/rvnminers-A-and-N",
   "authors": [
-    "Under"
+    "Alpha|Crypticwizardry.com"
   ],
   "description": "A pure, powerful core for your bitcoin project.",
   "moduleType": [
     "globals"
   ],
   "keywords": [
-    "ravencoin",
-    "ravencore",
+    "meowcoin",
+    "meowcoincore",
     "btc",
     "satoshi"
   ],

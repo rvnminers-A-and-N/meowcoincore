@@ -1,19 +1,19 @@
-Ravencore
+Meowcoincore
 =======
 
-This project is for end users of the RavenDevKit.  It's purpose is to help them install and configure the full stack, giving them access to the API and Block Explorer.
+This project is for end users of the rvnminers-A-and-N.  It's purpose is to help them install and configure the full stack, giving them access to the API and Block Explorer.
 
 ----
 Getting Started
 =====================================
 Known to work on this platform: Ubuntu 16.04/x86_64
 
-Deploying Ravencore full-stack manually:
+Deploying Meowcoincore full-stack manually:
 ----
 ````
 mkdir ~/rdk
-mkdir ~/.ravencore
-mkdir ~/.ravencore/data
+mkdir ~/.meowcoincore
+mkdir ~/.meowcoincore/data
 cd ~/rdk
 sudo apt-get update
 sudo apt-get -y install libevent-dev libboost-all-dev libminiupnpc10 libzmq5 software-properties-common curl git build-essential libzmq3-dev
@@ -36,20 +36,20 @@ sudo systemctl enable mongod.service
 
 ##(restart your shell/os)##
 cd ~/rdk
-##(install ravencore)##
-git clone https://github.com/RavenDevKit/ravencore.git
+##(install meowcoincore)##
+git clone https://github.com/rvnminers-A-and-N/meowcoincore.git
 
-## install ravencore, with or without ravencoin
-## option 1: downloads and installs ravencoin at /node_modules/ravencore-node/bin/ravend
-npm install -g ravencore --production
-## options 2: use this instead if you're maintaining your own ravencoin installation
-#SKIP_RAVENCOIN_DOWNLOAD=1 npm install -g ravencore --production
+## install meowcoincore, with or without meowcoin
+## option 1: downloads and installs meowcoin at /node_modules/meowcoincore-node/bin/meowcoind
+npm install -g meowcoincore --production
+## options 2: use this instead if you're maintaining your own meowcoin installation
+#SKIP_MEOWCOIN_DOWNLOAD=1 npm install -g meowcoincore --production
 
 ````
 
-Ravencore Node Configuration
+Meowcoincore Node Configuration
 ---
-Copy the [example configuration](examples/ravencore-node.json) to `~/.ravencore/ravencore-node.json`
+Copy the [example configuration](examples/meowcoincore-node.json) to `~/.meowcoincore/meowcoincore-node.json`
 
 Some things you'll want to customize:
 ----
@@ -69,25 +69,25 @@ Mongo Configuration
 MongoDB is used to store values behind some stats endpoints.  Run the following commands to set it up (the ones that start with `>` are run within mongo):
 ````
 mongo
->use raven-api-livenet
+>use meowcoin-api-livenet
 >db.createUser( { user: "test", pwd: "test1234", roles: [ "readWrite" ] } )
 >exit
 ````
 
-(NOTE: if you change any of the values here, change them in the `insight-api/db` section of your `ravencore-node.json`)
+(NOTE: if you change any of the values here, change them in the `insight-api/db` section of your `meowcoincore-node.json`)
 
-Ravencoin Node Configuration
+Meowcoin Node Configuration
 ---
-Copy the [example configuration](examples/raven.conf) to `~/.ravencore/data/raven.conf`
+Copy the [example configuration](examples/meowcoin.conf) to `~/.meowcoincore/data/meowcoin.conf`
 
-(NOTE: If you change the rpcuser or rpcpassword in this file be sure to also change it in the `ravend` section of your `~/.ravencore/ravencore-node.json`)
+(NOTE: If you change the rpcuser or rpcpassword in this file be sure to also change it in the `meowcoind` section of your `~/.meowcoincore/meowcoincore-node.json`)
 
-Launch Ravencore
+Launch Meowcoincore
 ---
 ````
-ravencored
+meowcoincored
 ````
-You can then view the Ravencoin block explorer at the location: `http://localhost:3001`
+You can then view the Meowcoin block explorer at the location: `http://localhost:3001`
 
 Troubleshooting
 ----
@@ -99,17 +99,17 @@ If the mongod isn't running some users have fixed it with these steps:
 
 If npm is having trouble with node-x16r:
 1. sudo apt-get install node-gyp
-2. run node-gyp rebuild from ravencore/node_modules/node-x16r
-3. run npm install from ravencore/node_modules/node-x16r
+2. run node-gyp rebuild from meowcoincore/node_modules/node-x16r
+3. run npm install from meowcoincore/node_modules/node-x16r
 
 If node is having trouble with "zmq.node":
-1. run `npm install zeromq` in ravencore
-2. or, run `npm rebuild zeromq` in ravencore
+1. run `npm install zeromq` in meowcoincore
+2. or, run `npm rebuild zeromq` in meowcoincore
 
-There may still be some lurking problems with the download-ravend script:
+There may still be some lurking problems with the download-meowcoind script:
 * unknown host breaks download into interactive mode
 * the `ln` doesn't seem to work (but works manually afterwards)
-* there's a path setting problem if ravencore isn't in your home directory
+* there's a path setting problem if meowcoincore isn't in your home directory
 
 
 
@@ -117,21 +117,21 @@ Create an Nginx proxy
 ----
 To forward port 80 and 443 (with a snakeoil ssl cert) traffic:
 
-IMPORTANT: this "nginx-ravencore" config is not meant for production use
+IMPORTANT: this "nginx-meowcoincore" config is not meant for production use
 see this guide [here](https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/) for production usage
 ````
 sudo apt-get install -y nginx ssl-cert
 ````
-copy the following into a file named "nginx-ravencore" and place it in /etc/nginx/sites-available/
+copy the following into a file named "nginx-meowcoincore" and place it in /etc/nginx/sites-available/
 ````
 server {
     listen 80;
     listen 443 ssl;
 
     include snippets/snakeoil.conf;
-    root /home/ravencore/www;
-    access_log /var/log/nginx/ravencore-access.log;
-    error_log /var/log/nginx/ravencore-error.log;
+    root /home/meowcoincore/www;
+    access_log /var/log/nginx/meowcoincore-access.log;
+    error_log /var/log/nginx/meowcoincore-error.log;
     location / {
         proxy_pass http://127.0.0.1:3001;
         proxy_http_version 1.1;
@@ -148,92 +148,92 @@ server {
        add_header Content-Type text/plain;
        return 200 "User-agent: *\nallow: /\n";
     }
-    location /ravencore-hostname.txt {
-        alias /var/www/html/ravencore-hostname.txt;
+    location /meowcoincore-hostname.txt {
+        alias /var/www/html/meowcoincore-hostname.txt;
     }
 }
 ````
 Then enable your site:
 ````
-sudo ln -s /etc/nginx/sites-available/nginx-ravencore /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/nginx-meowcoincore /etc/nginx/sites-enabled
 sudo rm -f /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
 sudo mkdir /etc/systemd/system/nginx.service.d
 sudo printf "[Service]\nExecStartPost=/bin/sleep 0.1\n" | sudo tee /etc/systemd/system/nginx.service.d/override.conf
 sudo systemctl daemon-reload
 sudo systemctl restart nginx
 ````
-Upgrading Ravencore full-stack manually:
+Upgrading Meowcoincore full-stack manually:
 ----
 
 - This will leave the local blockchain copy intact:
-Shutdown the ravencored application first, and backup your unique raven.conf and ravencore-node.json
+Shutdown the meowcoincored application first, and backup your unique meowcoin.conf and meowcoincore-node.json
 ````
 $cd ~/
-$rm -rf .npm .node-gyp ravencore
-$rm .ravencore/data/raven.conf .ravencore/ravencore-node.json
+$rm -rf .npm .node-gyp meowcoincore
+$rm .meowcoincore/data/meowcoin.conf .meowcoincore/meowcoincore-node.json
 ##reboot##
-$git clone https://github.com/RavenDevKit/ravencore.git
-$npm install -g ravencore --production
+$git clone https://github.com/rvnminers-A-and-N/meowcoincore.git
+$npm install -g meowcoincore --production
 ````
-(recreate your unique raven.conf and ravencore-node.json)
+(recreate your unique meowcoin.conf and meowcoincore-node.json)
 
 - This will redownload a new blockchain copy:
 (Some updates may require you to reindex the blockchain data. If this is the case, redownloading the blockchain only takes 20 minutes)
-Shutdown the ravencored application first, and backup your unique raven.conf and ravencore-node.json
+Shutdown the meowcoincored application first, and backup your unique meowcoin.conf and meowcoincore-node.json
 ````
 $cd ~/
-$rm -rf .npm .node-gyp ravencore
-$rm -rf .ravencore
+$rm -rf .npm .node-gyp meowcoincore
+$rm -rf .meowcoincore
 ##reboot##
-$git clone https://github.com/RavenDevKit/ravencore.git
-$npm install -g ravencore --production
+$git clone https://github.com/rvnminers-A-and-N/meowcoincore.git
+$npm install -g meowcoincore --production
 ````
-(recreate your unique raven.conf and ravencore-node.json)
+(recreate your unique meowcoin.conf and meowcoincore-node.json)
 
 #reboot
 
-git clone https://github.com/underdarkskies/ravencore.git
-cd ravencore && git checkout lightweight
+git clone https://github.com/underdarkskies/meowcoincore.git
+cd meowcoincore && git checkout lightweight
 npm install -g --production
 ````
-(recreate your unique raven.conf and ravencore-node.json)
+(recreate your unique meowcoin.conf and meowcoincore-node.json)
 
-Undeploying Ravencore full-stack manually:
+Undeploying Meowcoincore full-stack manually:
 ----
 ````
 nvm deactivate
 nvm uninstall 10.5.0
-rm -rf .npm .node-gyp ravencore
-rm .ravencore/data/raven.conf .ravencore/ravencore-node.json
+rm -rf .npm .node-gyp meowcoincore
+rm .meowcoincore/data/meowcoin.conf .meowcoincore/meowcoincore-node.json
 mongo
->use raven-api-livenet
+>use meowcoin-api-livenet
 >db.dropDatabase()
 >exit
 ````
 
 ## Applications
 
-- [Node](https://github.com/RavenDevKit/ravencore-node) - A full node with extended capabilities using Ravencoin Core
-- [Insight API](https://github.com/RavenDevKit/insight-api) - A blockchain explorer HTTP API
-- [Insight UI](https://github.com/RavenDevKit/insight) - A blockchain explorer web user interface
+- [Node](https://github.com/rvnminers-A-and-N/meowcoincore-node) - A full node with extended capabilities using Meowcoin Core
+- [Insight API](https://github.com/rvnminers-A-and-N/insight-api) - A blockchain explorer HTTP API
+- [Insight UI](https://github.com/rvnminers-A-and-N/insight) - A blockchain explorer web user interface
 
 ## Libraries
 
-- [Lib](https://github.com/RavenDevKit/ravencore-lib) - All of the core Ravencoin primatives including transactions, private key management and others
-- [P2P](https://github.com/RavenDevKit/ravencore-p2p) - The peer-to-peer networking protocol
-- [Message](https://github.com/RavenDevKit/ravencore-message) - Ravencoin message verification and signing
+- [Lib](https://github.com/rvnminers-A-and-N/meowcoincore-lib) - All of the core Meowcoin primatives including transactions, private key management and others
+- [P2P](https://github.com/rvnminers-A-and-N/meowcoincore-p2p) - The peer-to-peer networking protocol
+- [Message](https://github.com/rvnminers-A-and-N/meowcoincore-message) - Meowcoin message verification and signing
 
 ## Security
 
-We're using Ravencore in production, but please use common sense when doing anything related to finances! We take no responsibility for your implementation decisions.
+We're using Meowcoincore in production, but please use common sense when doing anything related to finances! We take no responsibility for your implementation decisions.
 
 ## Contributing
 
-Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/RavenDevKit/ravencore/blob/master/CONTRIBUTING.md) file.
+Please send pull requests for bug fixes, code optimization, and ideas for improvement. For more information on how to contribute, please refer to our [CONTRIBUTING](https://github.com/rvnminers-A-and-N/meowcoincore/blob/master/CONTRIBUTING.md) file.
 
 To verify signatures, use the following PGP keys:
 - TBD
 
 ## License
 
-Code released under [the MIT license](https://github.com/RavenDevKit/ravencore/blob/master/LICENSE).
+Code released under [the MIT license](https://github.com/rvnminers-A-and-N/meowcoincore/blob/master/LICENSE).

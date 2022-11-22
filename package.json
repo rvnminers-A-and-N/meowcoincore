@@ -1,18 +1,18 @@
 {
-  "name": "ravencore",
+  "name": "meowcoincore",
   "version": "1.0.5",
-  "description": "A platform to build ravencoin and blockchain-based applications.",
+  "description": "A platform to build meowcoin and blockchain-based applications.",
   "author": "Under",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha test/** --recursive"
   },
   "bin": {
-    "ravencore": "./bin/ravencore",
-    "ravencored": "./bin/ravencored"
+    "meowcoincore": "./bin/meowcoincore",
+    "meowcoincored": "./bin/meowcoincored"
   },
   "keywords": [
-    "ravencoin",
+    "meowcoin",
     "transaction",
     "address",
     "p2p",
@@ -29,18 +29,18 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/RavenDevKit/ravencore.git"
+    "url": "https://github.com/rvnminers-A-and-N/meowcoincore.git"
   },
   "browser": {
     "request": "browser-request"
   },
   "dependencies": {
-    "insight-api": "RavenDevKit/insight-api",
-    "insight-ui": "RavenDevKit/insight-ui",
-    "kawpow-light-verifier": "git+https://github.com/blondfrogs/kawpow-light-verifier.git",
-    "ravencore-lib": "RavenDevKit/ravencore-lib",
-    "ravencore-node": "RavenDevKit/ravencore-node",
-    "node-x16r": "RavenDevKit/node-x16r"
+    "insight-api": "git+https://github.com/rvnminers-A-and-N/insight-.git",
+    "insight-ui": "git+https://github.com/rvnminers-A-and-N/insight-ui.git",
+    "kawpow-light-verifier": "git+https://github.com/rvnminers-A-and-N/kawpow-light-verifier.git",
+    "meowcoincore-lib": "git+https://github.com/rvnminers-A-and-N/meowcoincore-lib.git",
+    "meowcoincore-node": "git+https://github.com/rvnminers-A-and-N/meowcoincore-node.git",
+    "node-x16r": "git+https://github.com/RavenDevKit/node-x16r.git"
   },
   "license": "MIT",
   "devDependencies": {
